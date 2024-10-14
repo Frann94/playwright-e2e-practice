@@ -15,6 +15,10 @@ require('dotenv').config(
  */
 export default defineConfig({
   testDir: './e2e/tests',
+  timeout: 25000,
+  expect: {
+    timeout: 25000,
+  },
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -37,16 +41,28 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    { 
+      name: 'setup', 
+      testMatch: /.*\.setup\.ts/ 
+    },
+
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+      },
+      dependencies: ['setup'],
     },
 
-    /*{
+    {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: {
+        ...devices['Desktop Firefox'],
+      },
+      dependencies: ['setup'],
     },
 
+    /*
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },

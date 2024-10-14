@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test';
 
+test.use({ storageState: { cookies: [], origins: [] } });
+
 test('Search for product', async ({ page }) => {
   await page.goto('https://www.mercadolibre.com.ar/');
   await page.locator('input[id=cb1-edit]').fill('Iphone');

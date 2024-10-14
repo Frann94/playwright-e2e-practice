@@ -1,5 +1,7 @@
 import { test } from "@playwright/test";
 
+test.use({ storageState: { cookies: [], origins: [] } });
+
 test("Book list equal to 1 test", async ({ page }, testInfo) => {
     // Interceptor -> changes the API response to force the list of books to be 1
     await page.route(

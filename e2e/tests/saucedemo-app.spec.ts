@@ -1,11 +1,9 @@
-import { test, expect } from '@playwright/test'
-import { LoginPage } from '../pages/saucedemo/login';
+import { test, expect } from '@playwright/test';
 
-test('purchase an item', async ({ page }) => {
-    await page.goto(process.env.URL as string);
-    const loginPage = new LoginPage(page);
-    await loginPage.loginWithCredentials('standard_user', 'secret_sauce');
-    await loginPage.checkSuccessfulLogin();
+test.use({ storageState: 'playwright/.auth/standardUser.json' });
+
+test('purchase an item with standardUser', async ({ page }) => {
+    await page.goto("https://www.saucedemo.com/inventory.html");
 
     const itemsContainer = await page.locator('#inventory_container .inventory_item').all();
     const randomIndex = Math.floor(Math.random() * itemsContainer.length);
